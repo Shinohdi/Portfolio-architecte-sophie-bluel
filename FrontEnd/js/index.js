@@ -1,7 +1,7 @@
 const response = await fetch("http://localhost:5678/api/works");
 let works = await response.json();
 
-function genererPhoto(works){
+function GenererTravaux(works){
     for(let i = 0; i < works.length;i++){
         const article = works[i];
 
@@ -21,7 +21,7 @@ function genererPhoto(works){
     }
 }
 
-genererPhoto(works);
+GenererTravaux(works);
 
 const buttonTous = document.querySelector(".btn_all");
 let buttonSelect = buttonTous;
@@ -34,51 +34,33 @@ buttonTous.addEventListener("click", function(){
         buttonSelect = buttonTous;
     }
     document.querySelector(".gallery").innerHTML = "";
-    genererPhoto(works);
+    GenererTravaux(works);
 })
 
 const buttonObjet = document.querySelector(".btn_obj");
-
 buttonObjet.addEventListener("click", function(){
-    if(buttonSelect !== buttonObjet){
-        buttonSelect.classList.remove("btn_selected");
-        buttonObjet.classList.add("btn_selected");
-        buttonSelect = buttonObjet;
-    }
-    const worksFilter = works.filter(function (photo){
-        return photo.categoryId == "1";
-    });
-    document.querySelector(".gallery").innerHTML = "";
-    genererPhoto(worksFilter);
+    changeWorks(buttonObjet, "1");
 })
 
-
 const buttonAppartement = document.querySelector(".btn_apt");
-
 buttonAppartement.addEventListener("click", function(){
-    if(buttonSelect !== buttonAppartement){
-        buttonSelect.classList.remove("btn_selected");
-        buttonAppartement.classList.add("btn_selected");
-        buttonSelect = buttonAppartement;
-    }
-    const worksFilter = works.filter(function (photo){
-        return photo.categoryId == "2";
-    });
-    document.querySelector(".gallery").innerHTML = "";
-    genererPhoto(worksFilter);
+    changeWorks(buttonAppartement, "2");
 })
 
 const buttonHotel = document.querySelector(".btn_htr");
-
 buttonHotel.addEventListener("click", function(){
-    if(buttonSelect !== buttonHotel){
+    changeWorks(buttonHotel, "3");
+})
+
+function changeWorks(button, id){
+    if(buttonSelect !== button){
         buttonSelect.classList.remove("btn_selected");
-        buttonHotel.classList.add("btn_selected");
-        buttonSelect = buttonHotel;
+        button.classList.add("btn_selected");
+        buttonSelect = button;
     }
     const worksFilter = works.filter(function (photo){
-        return photo.categoryId == "3";
+        return photo.categoryId == id;
     });
     document.querySelector(".gallery").innerHTML = "";
-    genererPhoto(worksFilter);
-})
+    GenererTravaux(worksFilter);
+}
