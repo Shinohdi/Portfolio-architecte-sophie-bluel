@@ -1,3 +1,5 @@
+import { token } from "./login";
+
 const response = await fetch("http://localhost:5678/api/works");
 let works = await response.json();
 

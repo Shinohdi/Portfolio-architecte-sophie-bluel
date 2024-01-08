@@ -242,3 +242,8 @@ button{
 	background-color: #1D6154;
 	color: white;
 }
+.error p{
+	margin-top: 20px;
+	font-size: 12px;
+	color: red;
+}
