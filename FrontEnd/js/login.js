@@ -1,5 +1,4 @@
 const formLog = document.querySelector(".login_form");
-export let token = "";
 
 formLog.addEventListener("submit", async function (event) {
     event.preventDefault();
@@ -15,24 +14,24 @@ formLog.addEventListener("submit", async function (event) {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: chargeUtile
-    }).then((response) =>{
-        if(response.status === 200){
-            LogIn(response);
-            console.log(response.token);
+    }).then(resp => resp.json())
+    .then(response =>{
+        if(response.token !== undefined){
+            LogIn(response.token);
+            console.log("oui");
         }else{
             UserError();
         }
     });
-
 });
 
 const errorElement = document.querySelector(".error");
 
-function LogIn(response){
+function LogIn(token){
     errorElement.innerHTML = "";
-    //console.log(token);
     
-    //window.location.href("./index.html");
+    window.localStorage.setItem("token", token);
+    window.location.assign("./index.html");
 }
 
 function UserError(){

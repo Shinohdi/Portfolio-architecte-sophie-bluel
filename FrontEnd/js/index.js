@@ -1,7 +1,17 @@
-import { token } from "./login";
+let works = window.localStorage.getItem("works");
+let token = window.localStorage.getItem("token");
 
-const response = await fetch("http://localhost:5678/api/works");
-let works = await response.json();
+changeProjectPage();
+
+if(works === null){
+    const response = await fetch("http://localhost:5678/api/works");
+    let works = await response.json();
+    
+    const valeurWorks = JSON.stringify(works);
+    window.localStorage.setItem("works", valeurWorks);
+}else{
+    works = JSON.parse(works);
+}
 
 function GenererTravaux(works){
     for(let i = 0; i < works.length;i++){
@@ -65,4 +75,33 @@ function changeWorks(button, id){
     });
     document.querySelector(".gallery").innerHTML = "";
     GenererTravaux(worksFilter);
+}
+
+
+function LogOut(button){
+    button.addEventListener("click", function(){
+        window.localStorage.removeItem("token");
+        token = null
+
+        window.location.reload();
+    })
+}
+
+function changeProjectPage(){
+    const editHead = document.querySelector(".edit_header");
+    const buttonLog = document.querySelector(".btn_log");
+
+    if(token !== null){
+        const htmlEdit = `
+        <div class = "banner">
+            <i class="fa-regular fa-pen-to-square"></i>
+            <p>Mode édition</p>
+        </div>
+        `;
+        editHead.innerHTML = htmlEdit;
+        buttonLog.innerHTML = "logout";
+        
+        LogOut(buttonLog);
+    }
+
 }
