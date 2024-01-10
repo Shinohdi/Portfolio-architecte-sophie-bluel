@@ -1,7 +1,6 @@
 let works = window.localStorage.getItem("works");
 let token = window.localStorage.getItem("token");
 
-changeProjectPage();
 
 if(works === null){
     const response = await fetch("http://localhost:5678/api/works");
@@ -16,17 +15,17 @@ if(works === null){
 function GenererTravaux(works){
     for(let i = 0; i < works.length;i++){
         const article = works[i];
-
+        
         const galerie = document.querySelector(".gallery");
         const articleElement = document.createElement("figure");
         //articleElement.dataset.id = article.id;
-
+        
         const imageElement = document.createElement("img");
         imageElement.src = article.imageUrl;
         imageElement.alt = article.title;
         const captionElement = document.createElement("figcaption");
         captionElement.innerText = article.title;
-
+        
         galerie.appendChild(articleElement);
         articleElement.appendChild(imageElement);
         articleElement.appendChild(captionElement);
@@ -64,6 +63,10 @@ buttonHotel.addEventListener("click", function(){
     changeWorks(buttonHotel, "3");
 })
 
+if(token !== null){
+    changeProjectPage();
+}
+
 function changeWorks(button, id){
     if(buttonSelect !== button){
         buttonSelect.classList.remove("btn_selected");
@@ -89,19 +92,27 @@ function LogOut(button){
 
 function changeProjectPage(){
     const editHead = document.querySelector(".edit_header");
+    const editTitle = document.querySelector(".project_title");
     const buttonLog = document.querySelector(".btn_log");
+    const filtresElements = document.querySelector(".filtres");
 
-    if(token !== null){
-        const htmlEdit = `
-        <div class = "banner">
-            <i class="fa-regular fa-pen-to-square"></i>
-            <p>Mode édition</p>
-        </div>
-        `;
-        editHead.innerHTML = htmlEdit;
-        buttonLog.innerHTML = "logout";
-        
-        LogOut(buttonLog);
-    }
-
+    const htmlEditHeader = `
+    <div class = "banner">
+        <i class="fa-regular fa-pen-to-square"></i>
+        <p>Mode édition</p>
+    </div>
+    `;
+    const htmlEditTitle = `
+    <h2>Mes Projets</h2>
+    <a href="">
+        <i class="fa-regular fa-pen-to-square"></i>
+        <p>modifier</p>
+    </a>
+    `;
+    editHead.innerHTML = htmlEditHeader;
+    buttonLog.innerHTML = "logout";
+    editTitle.innerHTML = htmlEditTitle;
+    filtresElements.innerHTML = "";
+    
+    LogOut(buttonLog);
 }
