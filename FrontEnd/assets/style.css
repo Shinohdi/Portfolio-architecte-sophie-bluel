@@ -282,8 +282,8 @@ button{
 .edit .window{
 	width: 630px;
 	height: 688px;
-	position: relative;
-	top: 500px;
+	position: fixed;
+	top: 150px;
 	padding: 25px;
 	border-radius: 10px;
 	background-color: #FFFFFF;

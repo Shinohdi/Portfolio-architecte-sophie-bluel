@@ -16,9 +16,9 @@ formLog.addEventListener("submit", async function (event) {
         body: chargeUtile
     }).then(resp => resp.json())
     .then(response =>{
+        //console.log(response.json().Object);
         if(response.token !== undefined){
-            LogIn(response.token);
-            console.log("oui");
+            LogIn(response.json().token);
         }else{
             UserError();
         }
