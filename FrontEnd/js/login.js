@@ -18,7 +18,7 @@ formLog.addEventListener("submit", async function (event) {
     .then(response =>{
         //console.log(response.json().Object);
         if(response.token !== undefined){
-            LogIn(response.json().token);
+            LogIn(response.token);
         }else{
             UserError();
         }

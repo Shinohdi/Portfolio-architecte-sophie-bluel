@@ -1,6 +1,7 @@
+import { OuvrirModal, FermerModal } from "./modal.js";
+
 let works = window.localStorage.getItem("works");
 let token = window.localStorage.getItem("token");
-
 
 if(works === null){
     const response = await fetch("http://localhost:5678/api/works");
@@ -65,6 +66,8 @@ buttonHotel.addEventListener("click", function(){
 
 if(token !== null){
     changeProjectPage();
+    OuvrirModal();
+    FermerModal();
 }
 
 function changeWorks(button, id){
@@ -79,7 +82,6 @@ function changeWorks(button, id){
     document.querySelector(".gallery").innerHTML = "";
     GenererTravaux(worksFilter);
 }
-
 
 function LogOut(button){
     button.addEventListener("click", function(){
@@ -104,10 +106,10 @@ function changeProjectPage(){
     `;
     const htmlEditTitle = `
     <h2>Mes Projets</h2>
-    <a href="">
+    <div class="lien">
         <i class="fa-regular fa-pen-to-square"></i>
-        <p>modifier</p>
-    </a>
+        <a href="#modal" class="open_modal">modifier</p>
+    </div>
     `;
     editHead.innerHTML = htmlEditHeader;
     buttonLog.innerHTML = "logout";
