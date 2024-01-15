@@ -106,6 +106,7 @@ li a:hover {
 	color: #B1663C;
 }
 li:hover {
+	cursor: pointer;
 	color: #B1663C;
 }
 #introduction {
@@ -121,14 +122,12 @@ li:hover {
 	margin: auto;
 	width: 80%;
 }
-
 #introduction article {
 	flex: 1
 }
 #introduction h2 {
 	margin-bottom: 1em;
 }
-
 #introduction p {
 	margin-bottom: 0.5em;
 }
@@ -200,13 +199,11 @@ input[type="submit"]{
 	text-align: center;
 	border-radius: 60px ;
 }
-
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
 }
-
 .filtres{
 	padding-top: 30px;
 	padding-bottom: 40px;
@@ -330,6 +327,7 @@ button{
 }
 .photo .delete{
 	z-index: 2;
+	cursor: pointer;
 	position: absolute;
 	top: 4px;
 	right: 4px;

@@ -13,27 +13,46 @@ if(works === null){
     works = JSON.parse(works);
 }
 
-function GenererTravaux(works){
+export function GenererTravaux(works, type){
     for(let i = 0; i < works.length;i++){
         const article = works[i];
         
-        const galerie = document.querySelector(".gallery");
-        const articleElement = document.createElement("figure");
-        //articleElement.dataset.id = article.id;
-        
-        const imageElement = document.createElement("img");
-        imageElement.src = article.imageUrl;
-        imageElement.alt = article.title;
-        const captionElement = document.createElement("figcaption");
-        captionElement.innerText = article.title;
-        
-        galerie.appendChild(articleElement);
-        articleElement.appendChild(imageElement);
-        articleElement.appendChild(captionElement);
+        switch(type){
+            case "gallery":
+                const galerie = document.querySelector(".gallery");
+                const articleElement = document.createElement("figure");
+                //articleElement.dataset.id = article.id;       
+                const imageElement = document.createElement("img");
+                imageElement.src = article.imageUrl;
+                imageElement.alt = article.title;
+                const captionElement = document.createElement("figcaption");
+                captionElement.innerText = article.title;
+
+                galerie.appendChild(articleElement);
+                articleElement.appendChild(imageElement);
+                articleElement.appendChild(captionElement);
+            break;
+            case "modal":
+                const modal = document.querySelector(".modal_gallery");
+                const articleModalElement = document.createElement("div");
+                articleModalElement.classList.add("photo");
+                const imageModalElement = document.createElement("img");
+                imageModalElement.src = article.imageUrl;
+                imageModalElement.alt = article.title;
+                const buttonDeleteElement = document.createElement("div");
+                buttonDeleteElement.classList.add("delete");
+                buttonDeleteElement.innerHTML = `<i id = ${article.id} class="fa-solid fa-trash-can">`
+
+                modal.appendChild(articleModalElement);
+                articleModalElement.appendChild(imageModalElement);
+                articleModalElement.appendChild(buttonDeleteElement);
+            break;
+        }
+
     }
 }
 
-GenererTravaux(works);
+GenererTravaux(works, "gallery");
 
 const buttonTous = document.querySelector(".btn_all");
 let buttonSelect = buttonTous;
@@ -46,7 +65,7 @@ buttonTous.addEventListener("click", function(){
         buttonSelect = buttonTous;
     }
     document.querySelector(".gallery").innerHTML = "";
-    GenererTravaux(works);
+    GenererTravaux(works, "gallery");
 })
 
 const buttonObjet = document.querySelector(".btn_obj");
@@ -66,7 +85,7 @@ buttonHotel.addEventListener("click", function(){
 
 if(token !== null){
     changeProjectPage();
-    OuvrirModal();
+    OuvrirModal(works);
     FermerModal();
 }
 
@@ -80,7 +99,7 @@ function changeWorks(button, id){
         return photo.categoryId == id;
     });
     document.querySelector(".gallery").innerHTML = "";
-    GenererTravaux(worksFilter);
+    GenererTravaux(worksFilter, "gallery");
 }
 
 function LogOut(button){
