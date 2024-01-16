@@ -12,15 +12,7 @@ export function OuvrirModal(works){
         modal.setAttribute('aria-model', 'true');
 
         document.querySelector(".modal_gallery").innerHTML = "";
-        GenererTravaux(works, "modal");
-
-        const deleteButtons = document.querySelectorAll(".delete");
-
-        for(let i = 0; i < deleteButtons.length; i++){
-            deleteButtons[i].addEventListener("click", function(event){
-                console.log(event.target.id);
-            })
-        }   
+        GenererTravaux(works, "modal");  
     });
 }
 

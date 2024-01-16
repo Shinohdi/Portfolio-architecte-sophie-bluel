@@ -3,15 +3,7 @@ import { OuvrirModal, FermerModal } from "./modal.js";
 let works = window.localStorage.getItem("works");
 let token = window.localStorage.getItem("token");
 
-if(works === null){
-    const response = await fetch("http://localhost:5678/api/works");
-    let works = await response.json();
-    
-    const valeurWorks = JSON.stringify(works);
-    window.localStorage.setItem("works", valeurWorks);
-}else{
-    works = JSON.parse(works);
-}
+RefreshWorks();
 
 export function GenererTravaux(works, type){
     for(let i = 0; i < works.length;i++){
@@ -41,7 +33,11 @@ export function GenererTravaux(works, type){
                 imageModalElement.alt = article.title;
                 const buttonDeleteElement = document.createElement("div");
                 buttonDeleteElement.classList.add("delete");
-                buttonDeleteElement.innerHTML = `<i id = ${article.id} class="fa-solid fa-trash-can">`
+                buttonDeleteElement.innerHTML = `<i id = ${article.id} class="fa-solid fa-trash-can cliquable">`
+
+                buttonDeleteElement.addEventListener("click", function(event){
+                    DeleteWork(event);                
+                })
 
                 modal.appendChild(articleModalElement);
                 articleModalElement.appendChild(imageModalElement);
@@ -51,8 +47,6 @@ export function GenererTravaux(works, type){
 
     }
 }
-
-GenererTravaux(works, "gallery");
 
 const buttonTous = document.querySelector(".btn_all");
 let buttonSelect = buttonTous;
@@ -109,6 +103,35 @@ function LogOut(button){
 
         window.location.reload();
     })
+}
+
+async function DeleteWork(e){
+    const id = e.target.id;
+    await fetch("http://localhost:5678/api/works/" + id,{
+        method: "DELETE",
+        headers: {Authorization: `Bearer ${window.localStorage.getItem("token")}`},            
+    });
+            
+    window.localStorage.removeItem("works");
+    works = null;
+    RefreshWorks();
+}
+
+async function RefreshWorks(){
+    if(works === null){
+        const response = await fetch("http://localhost:5678/api/works");
+        works = await response.json();
+        
+        const valeurWorks = JSON.stringify(works);
+        window.localStorage.setItem("works", valeurWorks);
+    }
+    else
+    {
+        works = JSON.parse(works);
+    }
+
+    GenererTravaux(works, "gallery");
+
 }
 
 function changeProjectPage(){

@@ -327,7 +327,6 @@ button{
 }
 .photo .delete{
 	z-index: 2;
-	cursor: pointer;
 	position: absolute;
 	top: 4px;
 	right: 4px;
@@ -336,6 +335,9 @@ button{
 	color: white;
 	border-radius: 2px;
 	font-size: 11px;
+}
+.cliquable{
+	cursor: pointer;
 }
 .modal_window-body hr{
 	margin-top: 75px;
