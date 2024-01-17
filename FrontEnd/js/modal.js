@@ -6,12 +6,16 @@ export function OuvrirModal(works){
     const buttonOpen = document.querySelector(".open_modal");
     buttonOpen.addEventListener("click", function(event){
         event.preventDefault();
+
+        if(modal === null){
+            RefreshModalWorks(works);
+        }
+
         modal = document.querySelector(event.target.getAttribute("href"));
         modal.classList.remove("hide");
         modal.removeAttribute("aria-hidden");
         modal.setAttribute('aria-model', 'true');
 
-        RefreshModalWorks(works);
     });
 }
 
@@ -22,15 +26,13 @@ export function FermerModal(){
         modal.classList.add("hide");
         modal.setAttribute("aria-hidden", "true");
         modal.removeAttribute("aria-modal");
-        modal = null;
+        //modal = null;
     })
 }
 
 export function RefreshModalWorks(works){
-    if(modal !== null){
-        document.querySelector(".modal_gallery").innerHTML = "";
-        GenererTravaux(works, "modal");
-    }
+    document.querySelector(".modal_gallery").innerHTML = "";
+    GenererTravaux(works, "modal");
 }
 
 

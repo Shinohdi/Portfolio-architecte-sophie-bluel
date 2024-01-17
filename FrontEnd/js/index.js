@@ -5,9 +5,9 @@ let token = window.localStorage.getItem("token");
 
 RefreshWorks();
 
-export function GenererTravaux(works, type){
-    for(let i = 0; i < works.length;i++){
-        const article = works[i];
+export function GenererTravaux(data, type){
+    for(let i = 0; i < data.length;i++){
+        const article = data[i];
         
         switch(type){
             case "gallery":
@@ -110,15 +110,17 @@ async function DeleteWork(e){
     if(id === ""){
         return
     }
-    await fetch("http://localhost:5678/api/works/" + id,{
+    const response = await fetch("http://localhost:5678/api/works/" + id,{
         method: "DELETE",
         headers: {Authorization: `Bearer ${window.localStorage.getItem("token")}`},            
     });
-            
-    window.localStorage.removeItem("works");
-    works = null;
-    document.querySelector(".gallery").innerHTML = "";
-    RefreshWorks();
+     
+    if(response.ok){
+        window.localStorage.removeItem("works");
+        works = null;
+        RefreshWorks();
+        document.querySelector(".gallery").innerHTML = "";
+    }
 }
 
 async function RefreshWorks(){
