@@ -11,8 +11,7 @@ export function OuvrirModal(works){
         modal.removeAttribute("aria-hidden");
         modal.setAttribute('aria-model', 'true');
 
-        document.querySelector(".modal_gallery").innerHTML = "";
-        GenererTravaux(works, "modal");  
+        RefreshModalWorks(works);
     });
 }
 
@@ -25,6 +24,13 @@ export function FermerModal(){
         modal.removeAttribute("aria-modal");
         modal = null;
     })
+}
+
+export function RefreshModalWorks(works){
+    if(modal !== null){
+        document.querySelector(".modal_gallery").innerHTML = "";
+        GenererTravaux(works, "modal");
+    }
 }
 
 

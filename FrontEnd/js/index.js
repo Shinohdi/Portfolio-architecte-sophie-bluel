@@ -1,4 +1,4 @@
-import { OuvrirModal, FermerModal } from "./modal.js";
+import { OuvrirModal, FermerModal, RefreshModalWorks } from "./modal.js";
 
 let works = window.localStorage.getItem("works");
 let token = window.localStorage.getItem("token");
@@ -107,6 +107,9 @@ function LogOut(button){
 
 async function DeleteWork(e){
     const id = e.target.id;
+    if(id === ""){
+        return
+    }
     await fetch("http://localhost:5678/api/works/" + id,{
         method: "DELETE",
         headers: {Authorization: `Bearer ${window.localStorage.getItem("token")}`},            
@@ -114,6 +117,7 @@ async function DeleteWork(e){
             
     window.localStorage.removeItem("works");
     works = null;
+    document.querySelector(".gallery").innerHTML = "";
     RefreshWorks();
 }
 
@@ -131,7 +135,7 @@ async function RefreshWorks(){
     }
 
     GenererTravaux(works, "gallery");
-
+    RefreshModalWorks(works);
 }
 
 function changeProjectPage(){
