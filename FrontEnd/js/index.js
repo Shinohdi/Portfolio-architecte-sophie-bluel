@@ -1,4 +1,4 @@
-import { OuvrirModal, FermerModal, RefreshModalWorks } from "./modal.js";
+import { OuvrirModal, RefreshModalWorks } from "./modal.js";
 
 let works = window.localStorage.getItem("works");
 let token = window.localStorage.getItem("token");
@@ -80,7 +80,6 @@ buttonHotel.addEventListener("click", function(){
 if(token !== null){
     changeProjectPage();
     OuvrirModal(works);
-    FermerModal();
 }
 
 function changeWorks(button, id){
