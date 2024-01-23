@@ -377,6 +377,19 @@ button{
 .add_form .text-input{
 	width: 380px;
 }
+.background_add{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 420px;
+	border-radius: 3px;
+	background-color: #E8F1F6;
+}
+.background_add img{
+	width: 50%;
+	height: 100%;
+	object-fit: cover;
+}
 .add_image{
 	display: flex;
 	flex-direction: column;
@@ -384,9 +397,6 @@ button{
 	box-sizing: border-box;
 	padding: 20px;
 	gap: 10px;
-	width: 420px;
-	border-radius: 3px;
-	background-color: #E8F1F6;
 }
 .add_image .fa-image{
 	font-size: 76px;
@@ -417,9 +427,12 @@ input[type="file"]{
 .add_form .select-input{
 	width: 420px;
 }
-.modal_window-body .no_valid{
+.modal_window-body .disable{
 	background-color: #A7A7A7;
 }
 .hide{
 	display: none;
+}
+.cliquable{
+	cursor: pointer;
 }

@@ -80,6 +80,7 @@ buttonHotel.addEventListener("click", function(){
 if(token !== null){
     changeProjectPage();
     OuvrirModal(works);
+    AddWork();
 }
 
 function changeWorks(button, id){
@@ -117,9 +118,38 @@ async function DeleteWork(e){
     if(response.ok){
         window.localStorage.removeItem("works");
         works = null;
-        RefreshWorks();
         document.querySelector(".gallery").innerHTML = "";
+        RefreshWorks();
     }
+}
+
+function AddWork(){
+    const formAdd = document.querySelector(".add_form");
+    formAdd.addEventListener("submit", async function(event){
+        event.preventDefault();
+        if(document.querySelector(".btn_valid").classList.contains("disable")){
+            return;
+        }
+        const requestWorks = {
+            image: event.target.querySelector("[name=add_file]").value,
+            title: event.target.querySelector("[name=titre]").value,
+            category: parseInt(event.target.querySelector("[name=categorie]").value)
+        };
+        const chargeUtile = JSON.stringify(requestWorks);
+        
+        const response = await fetch("http://localhost:5678/api/works", {
+            method: "POST",
+            headers: {Authorization: `Bearer ${window.localStorage.getItem("token")}`},
+            body: chargeUtile
+        });
+
+        if(response.ok){
+            window.localStorage.removeItem("works");
+            works = null;
+            document.querySelector(".gallery").innerHTML = "";
+            RefreshWorks();
+        }
+    }) 
 }
 
 async function RefreshWorks(){
