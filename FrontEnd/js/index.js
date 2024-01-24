@@ -1,7 +1,7 @@
 import { OuvrirModal, RefreshModalWorks } from "./modal.js";
 
 let works = window.localStorage.getItem("works");
-let token = window.localStorage.getItem("token");
+let token = window.sessionStorage.getItem("token");
 
 RefreshWorks();
 
@@ -130,17 +130,23 @@ function AddWork(){
         if(document.querySelector(".btn_valid").classList.contains("disable")){
             return;
         }
-        const requestWorks = {
-            image: event.target.querySelector("[name=add_file]").value,
+
+        const requestData = new FormData();
+        requestData.append("image", event.target.querySelector("[name=image]").files[0])
+        requestData.append("title", event.target.querySelector("[name=titre]").value)
+        requestData.append("category", parseInt(event.target.querySelector("[name=categorie]").value))
+
+        /*const requestWorks = {
+            image: event.target.querySelector("[name=image]").value,
             title: event.target.querySelector("[name=titre]").value,
             category: parseInt(event.target.querySelector("[name=categorie]").value)
         };
-        const chargeUtile = JSON.stringify(requestWorks);
-        
+        const chargeUtile = JSON.stringify(requestWorks);*/
+        //console.log(requestData.get("image"));
         const response = await fetch("http://localhost:5678/api/works", {
             method: "POST",
             headers: {Authorization: `Bearer ${window.localStorage.getItem("token")}`},
-            body: chargeUtile
+            body: requestData,
         });
 
         if(response.ok){

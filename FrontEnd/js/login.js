@@ -29,7 +29,7 @@ const errorElement = document.querySelector(".error");
 function LogIn(token){
     errorElement.innerHTML = "";
     
-    window.localStorage.setItem("token", token);
+    window.sessionStorage.setItem("token", token);
     window.location.assign("./index.html");
 }
 
