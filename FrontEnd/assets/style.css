@@ -436,3 +436,6 @@ input[type="file"]{
 .cliquable{
 	cursor: pointer;
 }
+.strong{
+	font-weight: 600;
+}
