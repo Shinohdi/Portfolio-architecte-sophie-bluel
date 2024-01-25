@@ -29,6 +29,11 @@ export function RefreshModalWorks(works){
     document.querySelector(".modal_gallery").innerHTML = "";
     GenererTravaux(works, "modal");
     if(inTheAddPage){
+        const addPage = document.querySelector(".add_window");
+        const deletePage = document.querySelector(".delete_window");
+        addPage.classList.add("hide");
+        deletePage.classList.remove("hide");
+        inTheAddPage = false;
         ReinitializeForm();
     }
 }
@@ -68,7 +73,6 @@ function ChangeModalPage(){
 
 function SetupTitle(){
     const titleInput = document.getElementById("titre");
-
     titleInput.addEventListener("change", function(){
         CheckFormValidation();
     })
@@ -128,7 +132,8 @@ function ReinitializeForm(){
         preview.classList.add("hide")
     }
 
-    document.querySelector(".add_form").reset(); 
+    document.querySelector(".add_form").reset();
+    CheckFormValidation(); 
 }
 
 function CheckFormValidation(){

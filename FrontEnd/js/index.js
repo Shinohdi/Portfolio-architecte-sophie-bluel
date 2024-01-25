@@ -98,7 +98,7 @@ function changeWorks(button, id){
 
 function LogOut(button){
     button.addEventListener("click", function(){
-        window.localStorage.removeItem("token");
+        window.sessionStorage.removeItem("token");
         token = null
 
         window.location.reload();
@@ -112,7 +112,7 @@ async function DeleteWork(e){
     }
     const response = await fetch("http://localhost:5678/api/works/" + id,{
         method: "DELETE",
-        headers: {Authorization: `Bearer ${window.localStorage.getItem("token")}`},            
+        headers: {Authorization: `Bearer ${window.sessionStorage.getItem("token")}`},            
     });
      
     if(response.ok){
@@ -145,7 +145,7 @@ function AddWork(){
         //console.log(requestData.get("image"));
         const response = await fetch("http://localhost:5678/api/works", {
             method: "POST",
-            headers: {Authorization: `Bearer ${window.localStorage.getItem("token")}`},
+            headers: {Authorization: `Bearer ${window.sessionStorage.getItem("token")}`},
             body: requestData,
         });
 
