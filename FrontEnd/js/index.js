@@ -12,8 +12,7 @@ export function GenererTravaux(data, type){
         switch(type){
             case "gallery":
                 const galerie = document.querySelector(".gallery");
-                const articleElement = document.createElement("figure");
-                //articleElement.dataset.id = article.id;       
+                const articleElement = document.createElement("figure");     
                 const imageElement = document.createElement("img");
                 imageElement.src = article.imageUrl;
                 imageElement.alt = article.title;
@@ -136,13 +135,6 @@ function AddWork(){
         requestData.append("title", event.target.querySelector("[name=titre]").value)
         requestData.append("category", parseInt(event.target.querySelector("[name=categorie]").value))
 
-        /*const requestWorks = {
-            image: event.target.querySelector("[name=image]").value,
-            title: event.target.querySelector("[name=titre]").value,
-            category: parseInt(event.target.querySelector("[name=categorie]").value)
-        };
-        const chargeUtile = JSON.stringify(requestWorks);*/
-        //console.log(requestData.get("image"));
         const response = await fetch("http://localhost:5678/api/works", {
             method: "POST",
             headers: {Authorization: `Bearer ${window.sessionStorage.getItem("token")}`},
