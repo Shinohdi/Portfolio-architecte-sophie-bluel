@@ -20,7 +20,7 @@ export async function OuvrirModal(works){
         modal = document.querySelector(event.target.getAttribute("href"));
         modal.classList.remove("hide");
         modal.removeAttribute("aria-hidden");
-        modal.setAttribute('aria-model', 'true');
+        modal.setAttribute('aria-modal', 'true');
 
     });
 }

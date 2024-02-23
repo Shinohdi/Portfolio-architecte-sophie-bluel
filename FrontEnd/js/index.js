@@ -154,8 +154,9 @@ async function RefreshWorks(){
     if(works === null){
         const response = await fetch("http://localhost:5678/api/works");
         works = await response.json();
-        
+
         const valeurWorks = JSON.stringify(works);
+
         window.localStorage.setItem("works", valeurWorks);
     }
     else
